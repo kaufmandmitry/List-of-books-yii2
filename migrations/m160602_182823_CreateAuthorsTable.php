@@ -11,7 +11,7 @@ class m160602_182823_CreateAuthorsTable extends Migration
             'FirstName' => $this->string()->notNull(),
             'Name' => $this->string()->notNull(),
         ]);
-
+        $this->createIndex('AuthName', 'Authors', ['FirstName', 'Name'], true);
     }
 
     public function down()

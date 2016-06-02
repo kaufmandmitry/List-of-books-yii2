@@ -8,7 +8,7 @@ class m160602_182840_CreateBooksTable extends Migration
     {
         $this->createTable('Books', [
             'Id' => $this->primaryKey(),
-            'Title' => $this->string()->notNull(),
+            'Title' => $this->string()->notNull()->unique(),
         ]);
 
     }
