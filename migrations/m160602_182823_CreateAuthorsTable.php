@@ -7,7 +7,7 @@ class m160602_182823_CreateAuthorsTable extends Migration
     public function up()
     {
         $this->createTable('Authors', [
-            'id' => $this->primaryKey(),
+            'Id' => $this->primaryKey(),
             'FirstName' => $this->string()->notNull(),
             'Name' => $this->string()->notNull(),
         ]);
