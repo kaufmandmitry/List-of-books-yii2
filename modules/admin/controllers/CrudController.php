@@ -2,11 +2,12 @@
 
 namespace app\modules\admin\controllers;
 
+use app\modules\admin\models\Authors;
+use app\modules\admin\models\RelationList;
+use app\modules\admin\models\Books;
 use yii\web\Controller;
+use Yii;
 
-/**
- * Default controller for the `admin` module
- */
 class CrudController extends Controller
 {
     /**
@@ -18,8 +19,18 @@ class CrudController extends Controller
         return $this->render('index');
     }
 
-    public function actionHello()
+    public function actionViewauthors()
     {
-        echo "Hello Dmitry!=)";
+        $authors = Authors::getRows();
+        return $this->render('viewauthors', ['authors' => $authors]);
     }
+
+    public function actionViewbooks()
+    {
+        $books = books::getRows();
+        return $this->render('viewbooks', ['books' => $books]);
+    }
+
+
+
 }
