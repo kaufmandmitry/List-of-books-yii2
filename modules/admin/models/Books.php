@@ -24,4 +24,5 @@ class Books extends ActiveRecord
         $array = self::find()->all();
         return $array;
     }
+
 }

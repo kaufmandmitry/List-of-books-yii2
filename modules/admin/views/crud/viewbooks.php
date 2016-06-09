@@ -1,4 +1,6 @@
-<a href="/admin/crud/viewauthors">Показать авторов и их книги</a><br>
+<?php use yii\helpers\Html; ?>
+<a href="/admin/crud/viewauthors"><?= Html::submitButton('Упорядочить по авторам', ['class' => 'btn btn-primary']) ?></a>
+<a href="/admin/crud/addbook"><?= Html::submitButton('Добавить книгу', ['class' => 'btn btn-success']) ?> </a>
 <h2>Список книг и их авторов</h2>
 <table class="table">
     <tr>
