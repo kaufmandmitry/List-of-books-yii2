@@ -51,7 +51,7 @@ class CrudController extends Controller
                 $book->save();
             }
             $author->link('books', $book);
-            return $this->redirect(Yii::$app->request->referrer);
+            return $this->redirect("/admin/crud/viewbooks");
         }
         else {
             return $this->render('addbook', ['model' => $model]);
@@ -68,12 +68,6 @@ class CrudController extends Controller
     public function actionDeleteauthor($id)
     {
         $author = Authors::findOne($id);
-        /*
-        $author->books;
-        foreach($author->books as $book) {
-            $author->unlink('books', $book);
-        }
-        */
         $author->delete();
         return $this->redirect(Yii::$app->request->referrer);
     }
@@ -88,17 +82,28 @@ class CrudController extends Controller
 
     public function actionEditbook($idbook)
     {
-        $model = new EditbookForm;
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $book = Books::find($idbook)->one();
-            $book->Title = $_POST['AddbookForm']['book'];
-            $book->Description = $_POST['AddbookForm']['description'];
+        $book = Books::findOne($idbook);
+        if ($book->load(Yii::$app->request->post())) {
+            $book->Title = $_POST['Books']['Title'];
+            $book->Description = $_POST['Books']['Description'];
             $book->save();
-            return $this->redirect("/admin/crud/viewbook");
+            return $this->redirect("/admin/crud/viewbooks");
         }
         else {
-            return $this->render('addbook', ['model' => $model]);
+            return $this->render('editbook', ['book' => $book]);
         }
     }
 
+    public function actionEditauthor($idauthor)
+    {
+        $author = Authors::findOne($idauthor);
+        if ($author->load(Yii::$app->request->post())) {
+            $author->Name = $_POST['Authors']['Name'];
+            $author->save();
+            return $this->redirect("/admin/crud/viewauthors");
+        }
+        else {
+            return $this->render('editauthor', ['author' => $author]);
+        }
+    }
 }

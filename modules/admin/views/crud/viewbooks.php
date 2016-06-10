@@ -14,7 +14,7 @@
             echo "<tr><td>" . $author->Name . "</td>";
             echo "<td><a href='/admin/crud/rip/?idauthor=" . $author->Id . "&idbook=" . $book->Id . "'>Разорвать связь</a></td></tr>";
         }
-        echo "</table></td><td><a href='/admin/crud/editbook/" . $book->Id . "'>Редактировать книгу</a></td>";
+        echo "</table></td><td><a href='/admin/crud/editbook/?idbook=" . $book->Id . "'>Редактировать книгу</a></td>";
         echo "<td><a href='/admin/crud/deletebook/?id=" . $book->Id . "'>Удалить книгу</a></td></tr>";
     }
     ?>
