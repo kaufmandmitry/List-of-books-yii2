@@ -51,10 +51,54 @@ class CrudController extends Controller
                 $book->save();
             }
             $author->link('books', $book);
-            return $this->redirect("/admin/crud/viewauthors");
+            return $this->redirect(Yii::$app->request->referrer);
         }
         else {
             return $this->render('addbook', ['model' => $model]);
         }
     }
+
+    public function actionDeletebook($id)
+    {
+        $book = Books::findOne($id);
+        $book->delete();
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionDeleteauthor($id)
+    {
+        $author = Authors::findOne($id);
+        /*
+        $author->books;
+        foreach($author->books as $book) {
+            $author->unlink('books', $book);
+        }
+        */
+        $author->delete();
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionRip($idbook, $idauthor)
+    {
+        $book = Books::find()->where(['id' => $idbook])->one();
+        $author= Authors::find()->where(['id' => $idauthor])->one();
+        $book->unlink('authors', $author, true);
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionEditbook($idbook)
+    {
+        $model = new EditbookForm;
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $book = Books::find($idbook)->one();
+            $book->Title = $_POST['AddbookForm']['book'];
+            $book->Description = $_POST['AddbookForm']['description'];
+            $book->save();
+            return $this->redirect("/admin/crud/viewbook");
+        }
+        else {
+            return $this->render('addbook', ['model' => $model]);
+        }
+    }
+
 }
