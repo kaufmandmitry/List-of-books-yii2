@@ -15,24 +15,20 @@ class CrudController extends Controller
      * Renders the index view for the module
      * @return string
      */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
 
-    public function actionViewauthors()
+    public function actionViewauthors() //Вывод данных с группировкой по авторам
     {
         $authors = Authors::getRows();
         return $this->render('viewauthors', ['authors' => $authors]);
     }
 
-    public function actionViewbooks()
+    public function actionViewbooks()   //Вывод книг с группировкой по книгам
     {
         $books = books::getRows();
         return $this->render('viewbooks', ['books' => $books]);
     }
 
-    public function actionAddbook()
+    public function actionAddbook()     //Добавление книги
     {
         $model = new AddbookForm;
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -43,7 +39,7 @@ class CrudController extends Controller
                 $author->save();
             }
 
-            $book = Books::find()->where(['Title' => $_POST['AddbookForm']['book']])->one();
+            $book = Books::find()->where(['Title' => $_POST['AddbookForm']['book']])->one();//Ищем книгу
             if(!isset($book)) {                                                    //Если такой книги нет, добавляем
                 $book = new Books;
                 $book->Title = $_POST['AddbookForm']['book'];
@@ -58,21 +54,21 @@ class CrudController extends Controller
         }
     }
 
-    public function actionDeletebook($id)
+    public function actionDeletebook($id)   //Удаление книги
     {
         $book = Books::findOne($id);
         $book->delete();
         return $this->redirect(Yii::$app->request->referrer);
     }
 
-    public function actionDeleteauthor($id)
+    public function actionDeleteauthor($id) //Удаление автора
     {
         $author = Authors::findOne($id);
         $author->delete();
         return $this->redirect(Yii::$app->request->referrer);
     }
 
-    public function actionRip($idbook, $idauthor)
+    public function actionRip($idbook, $idauthor)  //Разрыв связи между книгой и автором
     {
         $book = Books::find()->where(['id' => $idbook])->one();
         $author= Authors::find()->where(['id' => $idauthor])->one();
@@ -80,7 +76,7 @@ class CrudController extends Controller
         return $this->redirect(Yii::$app->request->referrer);
     }
 
-    public function actionEditbook($idbook)
+    public function actionEditbook($idbook)     //Изменить данные книги: название, описание
     {
         $book = Books::findOne($idbook);
         if ($book->load(Yii::$app->request->post())) {
@@ -94,7 +90,7 @@ class CrudController extends Controller
         }
     }
 
-    public function actionEditauthor($idauthor)
+    public function actionEditauthor($idauthor)  //Изменить данные автора: имя
     {
         $author = Authors::findOne($idauthor);
         if ($author->load(Yii::$app->request->post())) {

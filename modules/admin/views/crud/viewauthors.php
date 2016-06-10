@@ -12,7 +12,7 @@
         echo "<tr><td>" . $author->Name . "</td><td><table>"; //Вывод автора
     foreach($author->books as $book) {  //Вывод книг
         echo "<tr><td>" . $book->Title . "</td>";
-        echo "<td><a href='/admin/crud/rip/?idauthor=" . $author->Id . "&idbook=" . $book->Id . "'>Разорвать связь</a></td></tr>";
+        echo "<td> <a href='/admin/crud/rip/?idauthor=" . $author->Id . "&idbook=" . $book->Id . "'>Разорвать связь</a></td></tr>";
     }
         echo "</table></td><td><a href='/admin/crud/editauthor/?idauthor=" . $author->Id . "'>Редактировать автора</a></td>";
         echo "<td><a href='/admin/crud/deleteauthor/?id=" . $author->Id . "'>Удалить автора</a></td></tr>";

@@ -11,16 +11,16 @@ class Authors extends ActiveRecord
         return 'Authors';
     }
 
-    public static function getRows()
-    {
-        $array = self::find()->all();
-        return $array;
-    }
-
     public function getBooks()
     {
         return $this->hasMany(Books::className(), ['Id' => 'IdBook'])
             ->viaTable('RelationList', ['IdAuthor' => 'Id']);
+    }
+
+    public static function getRows()
+    {
+        $array = self::find()->all();
+        return $array;
     }
 
 }

@@ -3,20 +3,12 @@ namespace app\modules\admin\models;
 
 use yii\db\ActiveRecord;
 
-class RelationList extends ActiveRecord
+class RelationList extends ActiveRecord  //Промежуточная таблица: IdRow, IdAuthor, IdBook
 {
     public static function tableName()
     {
         return 'RelationList';
     }
-
-    public static function getRows()
-    {
-        $array = self::find()->asArray()->all();
-        return $array;
-    }
-
-
 }
 
 
