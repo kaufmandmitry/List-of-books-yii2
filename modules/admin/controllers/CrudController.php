@@ -15,6 +15,7 @@ class CrudController extends Controller
      * Renders the index view for the module
      * @return string
      */
+    public $defaultAction = 'viewbooks';
 
     public function actionViewauthors() //Вывод данных с группировкой по авторам
     {
@@ -36,16 +37,16 @@ class CrudController extends Controller
             if(!isset($author)) {                                                    //Если такого автора нет, добавляем
                 $author = new Authors;
                 $author->Name = $_POST['AddbookForm']['author'];
-                $author->save();
             }
 
             $book = Books::find()->where(['Title' => $_POST['AddbookForm']['book']])->one();//Ищем книгу
             if(!isset($book)) {                                                    //Если такой книги нет, добавляем
                 $book = new Books;
                 $book->Title = $_POST['AddbookForm']['book'];
-                $book->Description = $_POST['AddbookForm']['description'];
-                $book->save();
             }
+            $book->Description = $_POST['AddbookForm']['description'];
+            $author->save();
+            $book->save();
             $author->link('books', $book);
             return $this->redirect("/admin/crud/viewbooks");
         }
